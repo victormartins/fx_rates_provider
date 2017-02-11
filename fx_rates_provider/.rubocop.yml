@@ -1,0 +1,18 @@
+AllCops:
+  Exclude:
+    - 'fx_rates_provider.gemspec'
+
+Metrics/LineLength:
+  Max: 120
+
+Style/EmptyLinesAroundModuleBody:
+  Enabled: true
+
+Style/EmptyLinesAroundModuleBody:
+  Enabled: true
+
+Style/EmptyLinesAroundAccessModifier:
+  Enabled: true
+
+Style/SpaceAroundEqualsInParameterDefault:
+  Enabled: true
