@@ -30,6 +30,8 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
+  spec.add_runtime_dependency 'xml-simple', '~> 1.1.5'
+
   spec.add_development_dependency 'bundler', '~> 1.13'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.5'
@@ -43,4 +45,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'inch'
   spec.add_development_dependency 'yard'
   spec.add_development_dependency 'reek'
+  spec.add_development_dependency 'simplecov'
+  spec.add_development_dependency 'fakeweb', '~> 1.3'
 end
