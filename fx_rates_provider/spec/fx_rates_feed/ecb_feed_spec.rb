@@ -22,21 +22,27 @@ describe FXRatesProvider::FXRatesFeeds::ECBFeed do
       expect(first_fxr.date).to eql(Date.parse('2017-02-10'))
       expect(first_fxr.source).to eql('European Central Bank')
 
-      expect(first_fxr.rates.count).to eq 31
-      expect(first_fxr.rates.first.currency).to eq :USD
-      expect(first_fxr.rates.first.rate).to eq BigDecimal('1.0629')
-      expect(first_fxr.rates.last.currency).to eq :ZAR
-      expect(first_fxr.rates.last.rate).to eq BigDecimal('14.1866')
+      first_fx_rates = first_fxr.fx_rates
+      expect(first_fx_rates.count).to eq 31
+
+      expect(first_fx_rates.first.currency).to eq :USD
+      expect(first_fx_rates.first.rate).to eq BigDecimal('1.0629')
+
+      expect(first_fx_rates.last.currency).to eq :ZAR
+      expect(first_fx_rates.last.rate).to eq BigDecimal('14.1866')
 
       last_fxr = result.last
       expect(last_fxr.date).to eql(Date.parse('2016-11-14'))
       expect(last_fxr.source).to eql('European Central Bank')
 
-      expect(last_fxr.rates.count).to eq 31
-      expect(last_fxr.rates.first.currency).to eq :USD
-      expect(last_fxr.rates.first.rate).to eq BigDecimal('1.0777')
-      expect(last_fxr.rates.last.currency).to eq :ZAR
-      expect(last_fxr.rates.last.rate).to eq BigDecimal('15.5062')
+      last_fx_rates = last_fxr.fx_rates
+      expect(last_fx_rates.count).to eq 31
+
+      expect(last_fx_rates.first.currency).to eq :USD
+      expect(last_fx_rates.first.rate).to eq BigDecimal('1.0777')
+
+      expect(last_fx_rates.last.currency).to eq :ZAR
+      expect(last_fx_rates.last.rate).to eq BigDecimal('15.5062')
     end
   end
 end

@@ -11,29 +11,37 @@ module FXRatesProvider
 
       def get
         raw_data = http_get(URL)
-        raw_fx_rates = parse_xml(raw_data)
-        load_data(raw_fx_rates)
+        @raw_fx_rates = parse_xml(raw_data)
+        load_data
       end
 
       private
 
-      def load_data(raw_fx_rates)
-        result = []
-        source = raw_fx_rates['Sender'][0]['name'][0]
-        rates_per_day = raw_fx_rates['Cube'][0]['Cube']
+      attr_reader :raw_fx_rates
 
-        rates_per_day.each do |rate_day|
-          date = rate_day['time']
-          collection = FXRatesCollection.new(date: date, source: source)
-
-          rates = rate_day['Cube']
-          rates.each do |data|
-            collection.add_rate(currency: data['currency'], rate: data['rate'])
-          end
-          result << collection
+      def load_data
+        rates_per_day.map do |rate_day|
+          FXRatesCollection.new(date:      rate_day['time'],
+                                source:    data_source,
+                                raw_rates: parsed_rates(rate_day['Cube']))
         end
+      end
 
-        result
+      # Break dependency with outside data structure
+      def data_source
+        @data_source ||= raw_fx_rates['Sender'][0]['name'][0]
+      end
+
+      # Break dependency with outside data structure
+      def rates_per_day
+        @rates_per_day ||= raw_fx_rates['Cube'][0]['Cube']
+      end
+
+      # Break dependency with outside data structure
+      def parsed_rates(raw_rate_day)
+        raw_rate_day.map do |r|
+          OpenStruct.new(currency: r['currency'], rate: r['rate'])
+        end
       end
     end
   end
