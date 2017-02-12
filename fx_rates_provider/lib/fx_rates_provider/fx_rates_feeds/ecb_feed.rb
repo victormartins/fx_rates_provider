@@ -22,9 +22,11 @@ module FXRatesProvider
 
       def load_data
         rates_per_day.map do |rate_day|
-          FXRatesCollection.new(date:      rate_day['time'],
-                                source:    data_source,
-                                raw_rates: parsed_rates(rate_day['Cube']))
+          FXRatesProvider::FXRatesCollection.new(
+            date:      rate_day['time'],
+            source:    data_source,
+            raw_rates: parsed_rates(rate_day['Cube'])
+          )
         end
       end
 
