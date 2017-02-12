@@ -5,11 +5,16 @@ describe FXRatesProvider do
     expect(FXRatesProvider::VERSION).not_to be nil
   end
 
+  it 'has a root method' do
+    expect(described_class.root).to eq(Pathname.new(Dir.pwd))
+  end
+
   describe '.configure' do
     describe 'defaults' do
       it 'has default values' do
         defaults = {
-          repository_type: :sqlite3
+          repository_type: :sqlite3,
+          repository_uri: FXRatesProvider.root + 'repositories' + 'fx_sqlite3.db'
         }
         expect(described_class.configuration).to have_attributes(defaults)
       end

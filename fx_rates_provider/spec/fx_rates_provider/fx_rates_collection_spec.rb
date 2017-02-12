@@ -4,7 +4,7 @@ require 'shared_examples/i_persistable'
 
 require 'shoulda'
 
-describe FXRatesCollection do
+describe FXRatesProvider::FXRatesCollection do
   let(:date) { '2017-2-11' }
   let(:source) { 'test' }
 

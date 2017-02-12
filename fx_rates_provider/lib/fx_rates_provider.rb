@@ -6,11 +6,16 @@ module FXRatesProvider
   require 'fx_rates_provider/fx_rate'
   require 'fx_rates_provider/fx_provider'
 
+  def self.root
+    Pathname(__FILE__).dirname.parent
+  end
+
   class Configuration
-    attr_accessor :repository_type
+    attr_accessor :repository_type, :repository_uri
 
     def initialize
       @repository_type = :sqlite3
+      @repository_uri = FXRatesProvider.root + 'repositories' + 'fx_sqlite3.db'
     end
   end
 
