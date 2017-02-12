@@ -1,9 +1,4 @@
 RSpec.shared_examples 'a foreign exchange rates collection' do
-  let(:date) { '2017-2-11' }
-  let(:source) { 'test' }
-
-  subject { described_class.new(date: date, source: source) }
-
   it 'has a date for the fx rates, that is parsed from string to Date' do
     expect(subject).to respond_to(:date)
     expect(subject.date).to eql(Date.parse(date))

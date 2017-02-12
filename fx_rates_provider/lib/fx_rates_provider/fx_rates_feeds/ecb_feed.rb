@@ -2,6 +2,7 @@ module FXRatesProvider
   module FXRatesFeeds
     # Feed from the European Central Bank
     class ECBFeed
+      require 'fx_rates_provider/fx_rates_collection'
       require 'support/http_connection'
       require 'support/xml_parser'
       include HTTPConnection

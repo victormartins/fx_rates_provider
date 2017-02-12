@@ -3,6 +3,12 @@
 # This collection holds all the necessary data to give context to the FX Rates.
 class FXRatesCollection
   require_relative 'fx_rate'
+  require 'active_model'
+
+
+  include ActiveModel::Model
+  validates :date, :source, presence: true
+  validate :fx_rates_presence
 
   attr_accessor :date, :source, :fx_rates
 
@@ -27,5 +33,9 @@ class FXRatesCollection
       add_rate(currency: raw_rate.currency,
                rate: raw_rate.rate)
     end
+  end
+
+  def fx_rates_presence
+    errors.add(:fx_rates, 'No FX Rates to save.') unless fx_rates.any?
   end
 end
