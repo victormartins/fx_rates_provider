@@ -12,6 +12,13 @@ describe FXRatesProvider::FXRatesCollection do
 
   it_behaves_like 'a foreign exchange rates collection'
 
+  it 'sets the repository class reference' do
+    FXRatesProvider.instance_variable_set(:@repository, nil)
+    expect{FXRatesProvider.repository!}.to raise_error
+    subject
+    expect(FXRatesProvider.repository!).to eq FXRatesProvider::FXRatesCollectionSqlite3Repository
+  end
+
   describe 'validations' do
     it { should validate_presence_of(:date) }
     it { should validate_presence_of(:source) }

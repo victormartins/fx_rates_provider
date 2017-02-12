@@ -9,12 +9,23 @@ module FXRatesProvider
     end
 
     # Gets data from a FX Rates Feed and saves it.
+    # Rejects records with dates that are already present on the Repository
     def update!
       data = fx_feed.get
+      data = remove_cached_records(data)
       data.collect(&:save)
     end
 
     private
+
+    def remove_cached_records(data)
+      reject_date = last_updated_at
+      data.reject { |fx_collection| fx_collection.date <= reject_date }
+    end
+
+    def last_updated_at
+      FXRatesProvider.repository!.last_updated_at
+    end
 
     attr_reader :fx_feed
   end

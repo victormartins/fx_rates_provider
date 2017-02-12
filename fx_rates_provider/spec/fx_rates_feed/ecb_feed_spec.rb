@@ -15,6 +15,7 @@ describe FXRatesProvider::FXRatesFeeds::ECBFeed do
   describe '#get' do
     it 'gets fx rates for the last 90 days' do
       result = subject.get
+
       expect(result.count).to eq 64 # Only receiving 64 days at the moment?
 
       first_fxr = result.first

@@ -47,8 +47,8 @@ module FXRatesProvider
     def repository_klass
       repository_type = FXRatesProvider.configuration.repository_type.to_s.capitalize
       raise 'Repository Adapter must be present' unless repository_type.present?
-
-      FXRatesProvider.const_get("FXRatesCollection#{repository_type}Repository")
+      klass = FXRatesProvider.const_get("FXRatesCollection#{repository_type}Repository")
+      FXRatesProvider.repository = klass
     end
   end
 end

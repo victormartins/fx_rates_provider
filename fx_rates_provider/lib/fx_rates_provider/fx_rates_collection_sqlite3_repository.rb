@@ -9,7 +9,6 @@ module FXRatesProvider
     end
 
     def save
-      # if collection_valid
       sql = "INSERT INTO '#{DB_TABLE_NAME}' ('date', 'source', 'currency', 'rate') VALUES\n"
       fx_rates = collection.fx_rates
       fx_rates.each_with_index do |fx_rate, index|
@@ -25,12 +24,20 @@ module FXRatesProvider
 
     attr_reader :collection
 
+    # The date of the last entry
+    def self.last_updated_at
+      first_record = self.first
+      return Date.new(1900, 1, 1) unless first_record
+
+      first_record.date
+    end
+
     def self.first
       sql = "SELECT * from #{DB_TABLE_NAME} WHERE "
-      sql << "date = (SELECT date from #{DB_TABLE_NAME} LIMIT 1)"
+      sql << "date = (SELECT date from #{DB_TABLE_NAME} ORDER BY id LIMIT 1)"
       data = db.execute(sql)
 
-      return [] unless data.any?
+      return unless data.any?
 
       date      = data.first[-1]
       source    = data.first[1]
@@ -43,6 +50,13 @@ module FXRatesProvider
       sql = "DELETE FROM #{DB_TABLE_NAME};"
       sql << "DELETE FROM SQLITE_SEQUENCE WHERE name='#{DB_TABLE_NAME}';"
       db.execute(sql)
+    end
+
+    def self.count
+      sql = "SELECT COUNT(*) FROM #{DB_TABLE_NAME}"
+      result = db.execute(sql)
+      return unless result
+      result.flatten.first
     end
 
     def self.db
