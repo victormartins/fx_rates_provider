@@ -26,8 +26,16 @@ module FXRatesProvider
       @configuration ||= Configuration.new
     end
 
-    def reset
+    def configuration_reset
       @configuration = Configuration.new
+    end
+
+    def repository=(value)
+      @repository = value
+    end
+
+    def repository!
+      @repository || raise('No repository found!')
     end
 
     def configure

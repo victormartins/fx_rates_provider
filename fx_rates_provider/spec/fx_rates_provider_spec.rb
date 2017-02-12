@@ -36,4 +36,26 @@ describe FXRatesProvider do
       end
     end
   end
+
+  describe '.repository' do
+    context 'with a repository active' do
+      before do
+        described_class.repository = :repository
+      end
+
+      it 'returns the current repository' do
+        expect(described_class.repository!).to eq :repository
+      end
+    end
+
+    context 'when no repository is active' do
+      before do
+        described_class.repository = nil
+      end
+
+      it 'raises an error' do
+        expect{ described_class.repository! }.to raise_error 'No repository found!'
+      end
+    end
+  end
 end
