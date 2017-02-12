@@ -1,4 +1,3 @@
-require 'spec_helper'
 require 'fx_rates_provider/fx_rates_collection'
 require 'shared_examples/i_fx_rates_collection'
 
