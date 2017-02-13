@@ -4,6 +4,12 @@ module FXRatesProvider
   class FXProvider
     require 'fx_rates_provider/fx_rates_feeds/ecb_feed.rb'
 
+    # Auxiliary method to make the API shorter but still benifit from
+    # the internal memory of an instance object.
+    def self.at(*args)
+      self.new.at(*args)
+    end
+
     # Gets data from a FX Rates Feed and saves it.
     # Rejects records with dates that are already present on the Repository
     def update!

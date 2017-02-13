@@ -3,6 +3,12 @@ require 'fx_rates_provider/fx_provider'
 require 'fx_rates_provider/fx_rates_collection_sqlite3_repository'
 
 describe FXRatesProvider::FXProvider do
+  describe '.at' do
+    it 'calls #at' do
+      expect_any_instance_of(described_class).to receive(:at).with(:date, :GBP, :USD)
+      described_class.at(:date, :GBP, :USD)
+    end
+  end
   describe '#at' do
     before do
       # load fx rates
