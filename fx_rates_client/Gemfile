@@ -1,0 +1,4 @@
+source 'https://rubygems.org'
+
+gem 'fx_rates_provider', path: '../fx_rates_provider'
+gem 'sinatra', '~> 1.4.8'
