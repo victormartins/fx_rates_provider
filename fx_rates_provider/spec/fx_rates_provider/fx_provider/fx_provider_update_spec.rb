@@ -39,7 +39,7 @@ describe FXRatesProvider::FXProvider do
       let(:feed_mock) { instance_double 'FXRatesProvider::FXRatesFeeds::ECBFeed' }
       let(:repository_mock) { class_double 'FXRatesProvider::FXRatesCollectionSqlite3Repository' }
 
-      subject { described_class.new(feed_mock) }
+      subject { described_class.new }
       let(:yesterday) { Date.today.prev_day }
       let(:fx_rate_1) { double(:fx_rate_1, date: Date.today) }
       let(:fx_rate_2) { double :fx_rate_2, date: yesterday }
@@ -47,6 +47,7 @@ describe FXRatesProvider::FXProvider do
 
       before do
         FXRatesProvider.repository = repository_mock
+        expect(subject).to receive(:fx_feed).and_return(feed_mock)
         expect(repository_mock).to receive(:last_updated_at).and_return(yesterday)
         expect(feed_mock).to receive(:get).and_return(feed_data)
       end

@@ -11,11 +11,12 @@ module FXRatesProvider
   end
 
   class Configuration
-    attr_accessor :repository_type, :repository_uri
+    attr_accessor :repository_type, :repository_uri, :fx_feed
 
     def initialize
       @repository_type = :sqlite3
       @repository_uri = FXRatesProvider.root + 'repositories' + 'fx_sqlite3.db'
+      @fx_feed = :ECBFeed
     end
   end
 

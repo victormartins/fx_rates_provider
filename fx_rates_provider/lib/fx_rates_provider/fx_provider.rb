@@ -4,10 +4,6 @@ module FXRatesProvider
   class FXProvider
     require 'fx_rates_provider/fx_rates_feeds/ecb_feed.rb'
 
-    def initialize(fx_feed = FXRatesFeeds::ECBFeed.new)
-      @fx_feed = fx_feed
-    end
-
     # Gets data from a FX Rates Feed and saves it.
     # Rejects records with dates that are already present on the Repository
     def update!
@@ -29,6 +25,15 @@ module FXRatesProvider
        }
     end
 
+    # Adapter pattern so that we can easly change the repository type
+    def fx_feed
+      @fx_feed ||= begin
+        fx_feed = FXRatesProvider.configuration.fx_feed
+        raise 'Feed Adapter must be present' unless fx_feed.present?
+        FXRatesProvider::FXRatesFeeds.const_get(fx_feed).new
+      end
+    end
+
     private
 
     def extract_rate(fx_rate_collection, target_rate)
@@ -44,6 +49,6 @@ module FXRatesProvider
       FXRatesProvider.repository!.last_updated_at
     end
 
-    attr_reader :fx_feed, :repository
+    attr_reader :repository
   end
 end

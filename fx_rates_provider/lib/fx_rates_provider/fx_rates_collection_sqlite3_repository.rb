@@ -7,6 +7,7 @@ module FXRatesProvider
     def save(collection)
       sql = "INSERT INTO '#{DB_TABLE_NAME}' ('date', 'source', 'currency', 'rate') VALUES\n"
       fx_rates = collection.fx_rates
+
       fx_rates.each_with_index do |fx_rate, index|
         sql << "\t('#{collection.date}', '#{collection.source}', '#{fx_rate.currency}', '#{fx_rate.rate}')"
         sql << ",\n" unless index == fx_rates.count - 1
@@ -19,7 +20,6 @@ module FXRatesProvider
     class << self
       def find_by_date(date)
         sql = "SELECT * from #{DB_TABLE_NAME} WHERE date = '#{date}'"
-        # sql = 'SELECT * FROM fx_rates where date = '2017-02-08''
         data = db.execute(sql)
         convert_to_fx_collection(data)
       end
