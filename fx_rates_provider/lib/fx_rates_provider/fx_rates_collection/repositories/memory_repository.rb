@@ -11,6 +11,7 @@ module FXRatesProvider
 
         def save(fx_collection)
           date = fx_collection.date
+          # puts "Saved #{fx_collection.fx_rates.count} FX Rates for day #{fx_collection.date}"
           memory[date.to_s.to_sym] = fx_collection
         end
 
@@ -36,6 +37,7 @@ module FXRatesProvider
           end
 
           def find_by_date(date)
+            puts "Finds By Date #{date}"
             @memory[date.to_s.to_sym] if date
           end
 
