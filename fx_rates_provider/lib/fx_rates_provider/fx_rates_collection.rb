@@ -4,7 +4,7 @@ module FXRatesProvider
   # This collection holds all the necessary data to give context to the FX Rates.
   class FXRatesCollection
     require_relative 'fx_rate'
-    require_relative 'fx_rates_collection_sqlite3_repository'
+    require_relative 'fx_rates_collection/repositories'
     require 'active_model'
 
     include ActiveModel::Model
@@ -31,7 +31,7 @@ module FXRatesProvider
     def self.repository
       repository_type = FXRatesProvider.configuration.repository_type.to_s.capitalize
       raise 'Repository Adapter must be present' unless repository_type.present?
-      klass = FXRatesProvider.const_get("FXRatesCollection#{repository_type}Repository")
+      klass = FXRatesProvider::FXRatesCollection::Repositories.const_get("#{repository_type}Repository")
       FXRatesProvider.repository = klass
     end
 
