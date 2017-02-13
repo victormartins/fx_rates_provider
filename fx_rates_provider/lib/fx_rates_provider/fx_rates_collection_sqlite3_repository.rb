@@ -21,6 +21,7 @@ module FXRatesProvider
       def find_by_date(date)
         sql = "SELECT * from #{DB_TABLE_NAME} WHERE date = '#{date}'"
         data = db.execute(sql)
+        return if data.empty?
         convert_to_fx_collection(data)
       end
 

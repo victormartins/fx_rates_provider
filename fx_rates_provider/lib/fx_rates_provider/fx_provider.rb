@@ -21,6 +21,8 @@ module FXRatesProvider
     # Returns a rate between two currencies in a certain date
     def at(date, base_currency, counter_currency)
       fx_rate_collection = FXRatesCollection.repository.find_by_date(date)
+      return unless fx_rate_collection
+
       base_rate    = extract_rate(fx_rate_collection, base_currency)
       counter_rate = extract_rate(fx_rate_collection, counter_currency)
 

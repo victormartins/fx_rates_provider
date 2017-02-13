@@ -1,0 +1,102 @@
+<h1>FX-u-like</h1>
+
+<form action="/post" method="post">
+  <p>
+    Amount:
+    <input type="text" name="amount", value='100'/>
+  </p>
+
+  <p>
+    Date:
+    <input type="date" name="date", value="<%=@default_date%>">
+  </p>
+
+  <p>
+    Base Currency: </br>
+    <select name='base_currency'>
+      <option value="USD">USD</option>
+      <option value="JPY">JPY</option>
+      <option value="BGN">BGN</option>
+      <option value="CZK">CZK</option>
+      <option value="DKK">DKK</option>
+      <option value="GBP">GBP</option>
+      <option value="HUF">HUF</option>
+      <option value="PLN">PLN</option>
+      <option value="RON">RON</option>
+      <option value="SEK">SEK</option>
+      <option value="CHF">CHF</option>
+      <option value="NOK">NOK</option>
+      <option value="HRK">HRK</option>
+      <option value="RUB">RUB</option>
+      <option value="TRY">TRY</option>
+      <option value="AUD">AUD</option>
+      <option value="BRL">BRL</option>
+      <option value="CAD">CAD</option>
+      <option value="CNY">CNY</option>
+      <option value="HKD">HKD</option>
+      <option value="IDR">IDR</option>
+      <option value="ILS">ILS</option>
+      <option value="INR">INR</option>
+      <option value="KRW">KRW</option>
+      <option value="MXN">MXN</option>
+      <option value="MYR">MYR</option>
+      <option value="NZD">NZD</option>
+      <option value="PHP">PHP</option>
+      <option value="SGD">SGD</option>
+      <option value="THB">THB</option>
+      <option value="ZAR">ZAR</option>
+    </select>
+  </p>
+
+  <p>
+    Base Currency: </br>
+    <select name='counter_currency'>
+      <option value="USD">USD</option>
+      <option value="JPY">JPY</option>
+      <option value="BGN">BGN</option>
+      <option value="CZK">CZK</option>
+      <option value="DKK">DKK</option>
+      <option value="GBP">GBP</option>
+      <option value="HUF">HUF</option>
+      <option value="PLN">PLN</option>
+      <option value="RON">RON</option>
+      <option value="SEK">SEK</option>
+      <option value="CHF">CHF</option>
+      <option value="NOK">NOK</option>
+      <option value="HRK">HRK</option>
+      <option value="RUB">RUB</option>
+      <option value="TRY">TRY</option>
+      <option value="AUD">AUD</option>
+      <option value="BRL">BRL</option>
+      <option value="CAD">CAD</option>
+      <option value="CNY">CNY</option>
+      <option value="HKD">HKD</option>
+      <option value="IDR">IDR</option>
+      <option value="ILS">ILS</option>
+      <option value="INR">INR</option>
+      <option value="KRW">KRW</option>
+      <option value="MXN">MXN</option>
+      <option value="MYR">MYR</option>
+      <option value="NZD">NZD</option>
+      <option value="PHP">PHP</option>
+      <option value="SGD">SGD</option>
+      <option value="THB">THB</option>
+      <option value="ZAR">ZAR</option>
+    </select>
+  </p>
+
+  </br>
+  <input type="submit", value='Convert'>
+</form>
+
+<div style="<%= 'display: none' unless @result.any? %>">
+  <h2>Result:   <%= @result[:result] %></h2>
+  <p>For Date:  <%= @result[:date] %></p>
+  <p>Source:    <%= @result[:source] %></p>
+  <p>Base Currency:    <%= @result[:base_currency] %> - <%= @result[:base_rate] %></p>
+  <p>Counter Currency: <%= @result[:counter_currency] %> - <%= @result[:counter_rate] %></p>
+</div>
+
+<div style="<%= 'display: none' if @result.any? %>">
+  <h2>Sorry, No results for selected date.</h2>
+</div>
