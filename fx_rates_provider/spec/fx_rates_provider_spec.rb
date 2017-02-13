@@ -35,6 +35,12 @@ describe FXRatesProvider do
 
         expect(described_class.configuration).to have_attributes(values)
       end
+
+      it 'allows to reset the configuration' do
+        described_class.configuration_reset
+        expect(described_class.configuration.repository_type).to eq :sqlite3
+
+      end
     end
   end
 
