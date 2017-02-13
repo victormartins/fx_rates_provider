@@ -33,7 +33,7 @@ module FXRatesProvider
        }
     end
 
-    # Adapter pattern so that we can easly change the repository type
+    # Adapter pattern so that we can easly change the feed type
     def fx_feed
       @fx_feed ||= begin
         fx_feed = FXRatesProvider.configuration.fx_feed
