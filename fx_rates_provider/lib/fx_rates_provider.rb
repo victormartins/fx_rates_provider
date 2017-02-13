@@ -20,7 +20,7 @@ module FXRatesProvider
   end
 
   class << self
-    attr_writer :configuration
+    attr_writer :configuration, :repository
 
     def configuration
       @configuration ||= Configuration.new
@@ -28,10 +28,6 @@ module FXRatesProvider
 
     def configuration_reset
       @configuration = Configuration.new
-    end
-
-    def repository=(value)
-      @repository = value
     end
 
     def repository!
