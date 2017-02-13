@@ -14,9 +14,9 @@ describe FXRatesProvider::FXRatesCollection do
 
   it 'sets the repository class reference' do
     FXRatesProvider.instance_variable_set(:@repository, nil)
-    expect{FXRatesProvider.repository!}.to raise_error
+    expect { FXRatesProvider.repository! } .to raise_error
     subject
-    expect(FXRatesProvider.repository!).to eq FXRatesProvider::FXRatesCollection::Repositories::Sqlite3Repository
+    expect(FXRatesProvider.repository!).to be_present
   end
 
   describe 'validations' do

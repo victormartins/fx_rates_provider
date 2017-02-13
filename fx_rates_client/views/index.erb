@@ -3,12 +3,12 @@
 <form action="/post" method="post">
   <p>
     Amount:
-    <input type="text" name="amount", value='100'/>
+    <input type="text" name="amount", value="<%= @amount || '100 '%>" />
   </p>
 
   <p>
     Date:
-    <input type="date" name="date", value="<%=@default_date%>">
+    <input type="date" name="date", value="<%=@date || @default_date%>">
   </p>
 
   <p>

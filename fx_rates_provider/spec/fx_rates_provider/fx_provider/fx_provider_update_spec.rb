@@ -10,7 +10,7 @@ describe FXRatesProvider::FXProvider do
         repository.delete_all
       end
 
-      let(:repository) { FXRatesProvider::FXRatesCollection::Repositories::Sqlite3Repository }
+      let(:repository) { FXRatesProvider::FXRatesCollection.repository }
       let(:fx_data) { FXRatesProvider::FXRatesFeeds::ECBFeed.new.get }
       let(:fx_total) { fx_data.count * fx_data.first.fx_rates.count }
 

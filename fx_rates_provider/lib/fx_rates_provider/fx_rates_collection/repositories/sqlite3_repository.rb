@@ -31,7 +31,7 @@ module FXRatesProvider
           # The date of the last entry
           def last_updated_at
             first_record = first
-            return Date.new(1900, 1, 1) unless first_record
+            return DEFAULT_DATE unless first_record
 
             first_record.date
           end

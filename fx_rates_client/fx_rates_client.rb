@@ -2,6 +2,11 @@ require 'sinatra'
 require 'bundler/setup'
 require 'fx_rates_provider'
 
+FXRatesProvider.configure do |config|
+  # config.repository_name = 'fx_sqlite3_dev.db'
+  # config.repository_type = :sqlite3
+end
+
 before do
   @default_date = Date.today
 end
@@ -12,12 +17,12 @@ get '/' do
 end
 
 post '/post' do
-  date             = Date.parse(params[:date])
+  @date            = Date.parse(params[:date])
   base_currency    = params[:base_currency]
   counter_currency = params[:counter_currency]
-  amount           = params[:amount]
+  @amount          = params[:amount]
 
-  data = ExchangeRate.at(date, base_currency, counter_currency)
+  data = ExchangeRate.at(@date, base_currency, counter_currency)
 
   if data
     base_rate    = data[:base_rate].rate
@@ -29,7 +34,7 @@ post '/post' do
       base_rate:        base_rate.to_s('F'),
       counter_currency: data[:counter_rate].currency,
       counter_rate:     counter_rate.to_s('F'),
-      result:           ((BigDecimal(amount) * base_rate)/(counter_rate)).to_s('F')
+      result:           ((BigDecimal(@amount) * base_rate)/(counter_rate)).to_s('F')
     }
 
   else

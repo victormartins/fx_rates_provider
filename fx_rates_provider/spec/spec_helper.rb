@@ -6,6 +6,11 @@ SimpleCov.start do
 end
 
 require 'fx_rates_provider'
+
 FXRatesProvider.configure do |config|
-  config.repository_name = 'fx_sqlite3_test.db'
+
+  # config.repository_name = 'fx_sqlite3_test.db'
+  # config.repository_type = :sqlite3
+
+  config.repository_type = :memory
 end

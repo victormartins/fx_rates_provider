@@ -12,13 +12,10 @@ describe FXRatesProvider do
   describe '.configure' do
     describe 'defaults' do
       it 'has default values' do
-        defaults = {
-          repository_type: :sqlite3,
-          repository_name: 'fx_sqlite3_test.db',
-          repository_uri: FXRatesProvider.root + 'repositories/',
-          fx_feed: :ECBFeed
-        }
-        expect(described_class.configuration).to have_attributes(defaults)
+        expect(described_class.configuration.repository_type).to be_present
+        expect(described_class.configuration.repository_name).to be_present
+        expect(described_class.configuration.repository_uri).to be_present
+        expect(described_class.configuration.fx_feed).to eq :ECBFeed
       end
     end
 
