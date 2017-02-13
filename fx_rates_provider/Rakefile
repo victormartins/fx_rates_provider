@@ -4,3 +4,14 @@ require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec)
 
 task default: :spec
+
+task :load_application do
+  require 'fx_rates_provider'
+end
+
+namespace :fx_feed do
+  desc 'Updates the FX Feed with rates not yet saved'
+  task :update! => :load_application do
+    FXRatesProvider::FXProvider.new.update!
+  end
+end

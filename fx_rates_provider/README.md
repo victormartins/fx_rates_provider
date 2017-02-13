@@ -1,12 +1,7 @@
 # FxTradesProvider
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/fx_trades_provider`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
 
 ## Installation
-
-Add this line to your application's Gemfile:
 
 ```ruby
 gem 'fx_trades_provider'
@@ -20,22 +15,36 @@ Or install it yourself as:
 
     $ gem install fx_trades_provider
 
+## Configuration and default values
+
+```
+  FXRatesProvider.configure |config|
+    config.repository_type = :sqlite3
+    config.repository_uri = <gem_root_path>/repositories/fx_sqlite3.db
+    config.fx_feed = :ECBFeed
+  end
+```
+
 ## Usage
 
-TODO: Write usage instructions here
+To update the repository with the latest Foreign Exchange Rates call the following rake task.
+Note: This will not save previously saved rates.
 
-## Development
+```
+rake fx_feed:update!
+```
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+To use the FXRatesProvider::FXProvider
+fx_provider = FXRatesProvider::FXProvider.new
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+#Updates the repository with new fx rates from the configurated feed
+fx_provider.update!
 
-## Contributing
+#Returns a FXRatesProvider::FXRatesCollection with both fx rates for the given date
+fx_provider.at(Date.current, 'GBP', 'USD')
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/fx_trades_provider. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
+#Development
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-

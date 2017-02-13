@@ -15,7 +15,7 @@ module FXRatesProvider
 
     def initialize
       @repository_type = :sqlite3
-      @repository_uri = FXRatesProvider.root + 'repositories' + 'fx_sqlite3.db'
+      @repository_uri  = FXRatesProvider.root + 'repositories' + 'fx_sqlite3.db'
       @fx_feed = :ECBFeed
     end
   end
