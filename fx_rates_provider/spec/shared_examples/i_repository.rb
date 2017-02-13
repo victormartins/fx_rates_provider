@@ -18,6 +18,11 @@ RSpec.shared_examples 'a repository class' do
       expect(described_class).to respond_to(:delete_all)
     end
 
+    it 'has a .find_by_date method' do
+      expect(described_class).to respond_to(:find_by_date)
+    end
+
+
     it 'has a .last_updated_at method' do
       expect(described_class).to respond_to(:last_updated_at)
     end

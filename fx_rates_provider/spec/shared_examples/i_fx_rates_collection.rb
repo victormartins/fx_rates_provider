@@ -13,6 +13,10 @@ RSpec.shared_examples 'a foreign exchange rates collection' do
     expect(subject).to respond_to(:fx_rates)
   end
 
+  it 'has a repository' do
+    expect(described_class).to respond_to(:repository)
+  end
+
   it 'has an empty rates collection by default' do
     expect(subject.fx_rates).to be_empty
   end

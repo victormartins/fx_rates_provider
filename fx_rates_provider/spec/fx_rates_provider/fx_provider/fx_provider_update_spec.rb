@@ -7,10 +7,6 @@ describe FXRatesProvider::FXProvider do
     describe 'getting and saving data' do
       subject { described_class.new }
 
-      before :each do
-        repository.delete_all
-      end
-
       after :each do
         repository.delete_all
       end

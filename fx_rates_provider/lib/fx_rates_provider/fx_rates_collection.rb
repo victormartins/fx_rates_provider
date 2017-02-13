@@ -12,16 +12,27 @@ module FXRatesProvider
     validate :fx_rates_presence
 
     attr_accessor :date, :source, :fx_rates
-    delegate :save, to: :repository
 
     def initialize(date:, source:, raw_rates: [])
       @date      = Date.parse(date)
       @source    = source
       @fx_rates  = []
       @raw_rates = raw_rates
-      @repository = repository_klass.new(self)
+      @repository = self.class.repository.new
 
       load_data
+    end
+
+    def save
+      repository.save(self)
+    end
+
+    # Adapter pattern so that we can easly change the repository type
+    def self.repository
+      repository_type = FXRatesProvider.configuration.repository_type.to_s.capitalize
+      raise 'Repository Adapter must be present' unless repository_type.present?
+      klass = FXRatesProvider.const_get("FXRatesCollection#{repository_type}Repository")
+      FXRatesProvider.repository = klass
     end
 
     private
@@ -41,14 +52,6 @@ module FXRatesProvider
 
     def fx_rates_presence
       errors.add(:fx_rates, 'No FX Rates to save.') unless fx_rates.any?
-    end
-
-    # Adapter pattern so that we can easly change the repository type
-    def repository_klass
-      repository_type = FXRatesProvider.configuration.repository_type.to_s.capitalize
-      raise 'Repository Adapter must be present' unless repository_type.present?
-      klass = FXRatesProvider.const_get("FXRatesCollection#{repository_type}Repository")
-      FXRatesProvider.repository = klass
     end
   end
 end
