@@ -57,9 +57,11 @@ module FXRatesProvider
 
       def db
         @db ||= begin
-          repository_uri = FXRatesProvider.configuration.repository_uri
+          repository_uri  = FXRatesProvider.configuration.repository_uri
+          repository_name = FXRatesProvider.configuration.repository_name
+          db_path         = repository_uri.to_s + repository_name
 
-          SQLite3::Database.new(repository_uri.to_s).tap do |db|
+          SQLite3::Database.new(db_path).tap do |db|
             db.execute <<-SQL
               CREATE TABLE IF NOT EXISTS #{DB_TABLE_NAME} (
                 id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,

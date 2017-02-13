@@ -14,7 +14,8 @@ describe FXRatesProvider do
       it 'has default values' do
         defaults = {
           repository_type: :sqlite3,
-          repository_uri: FXRatesProvider.root + 'repositories' + 'fx_sqlite3.db',
+          repository_name: 'fx_sqlite3_test.db',
+          repository_uri: FXRatesProvider.root + 'repositories/',
           fx_feed: :ECBFeed
         }
         expect(described_class.configuration).to have_attributes(defaults)
@@ -25,12 +26,14 @@ describe FXRatesProvider do
       before do
         described_class.configure do |config|
           config.repository_type = :foo
+          config.repository_uri  =  URI('foo/bar')
         end
       end
 
       it 'allows to set new values' do
         values = {
-          repository_type: :foo
+          repository_type: :foo,
+          repository_uri: URI('foo/bar')
         }
 
         expect(described_class.configuration).to have_attributes(values)

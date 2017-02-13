@@ -35,15 +35,17 @@ rake fx_feed:update!
 ```
 
 To use the FXRatesProvider::FXProvider
+```
 fx_provider = FXRatesProvider::FXProvider.new
 
 #Updates the repository with new fx rates from the configurated feed
 fx_provider.update!
 
-#Returns a FXRatesProvider::FXRatesCollection with both fx rates for the given date
-fx_provider.at(Date.current, 'GBP', 'USD')
+# Returns a FXRatesProvider::FXRatesCollection with both fx rates for the given date
+fx_provider.at(Date.today, 'GBP', 'USD')
+```
 
-#Development
+##Development
 
 ## License
 
