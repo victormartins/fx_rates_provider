@@ -1,6 +1,5 @@
 require 'fx_rates_provider'
 require 'fx_rates_provider/fx_provider'
-require 'fx_rates_provider/fx_rates_collection_sqlite3_repository'
 
 describe FXRatesProvider::FXProvider do
   describe '.at' do
